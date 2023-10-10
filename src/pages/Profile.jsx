@@ -138,6 +138,13 @@ const ProfilePage = () => {
       .then(() => {
         dispatch(logoutHandler({ isSession: true }));
         showInfo({ message: 'Account deleted successfully' });
+      })
+      .catch((error) => {
+        if (error.data?.msg) {
+          showError({ message: error.data.msg });
+        } else {
+          showError({ message: 'Something went wrong!, please try again' });
+        }
       });
   };
 
