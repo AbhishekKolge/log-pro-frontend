@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Typography, Stack, Card, CardContent } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import dayjs from 'dayjs';
 
 import TimeFilter from '../components/TimeFilter/TimeFilter';
 import ChartBox from '../components/ChartBox/ChartBox';
+
+import { showError } from '../snackbar/snackbarAction';
 
 import { useGetAnalyticsQuery } from '../features/log/logApiSlice';
 
@@ -15,16 +17,19 @@ const DashboardPage = () => {
     key: 'selection',
   });
 
-  const { data: analyticsData, isLoading: analyticsIsLoading } =
-    useGetAnalyticsQuery(
-      {
-        startDate: new Date(selectionRange.startDate).getTime(),
-        endDate: new Date(selectionRange.endDate).getTime(),
-      },
-      {
-        skip: selectionRange.startDate && selectionRange.endDate ? false : true,
-      }
-    );
+  const {
+    data: analyticsData,
+    isLoading: analyticsIsLoading,
+    error: analyticsError,
+  } = useGetAnalyticsQuery(
+    {
+      startDate: new Date(selectionRange.startDate).getTime(),
+      endDate: new Date(selectionRange.endDate).getTime(),
+    },
+    {
+      skip: selectionRange.startDate && selectionRange.endDate ? false : true,
+    }
+  );
 
   const selectionHandler = (ranges) => {
     ranges.selection.startDate = dayjs(ranges.selection.startDate)
@@ -35,6 +40,16 @@ const DashboardPage = () => {
       .toDate();
     setSelectionRange(ranges.selection);
   };
+
+  useEffect(() => {
+    if (analyticsError) {
+      if (analyticsError?.data?.msg) {
+        showError({ message: analyticsError.data.msg });
+      } else {
+        showError({ message: 'Something went wrong!, please try again' });
+      }
+    }
+  }, [analyticsError]);
 
   return (
     <Stack spacing={3}>

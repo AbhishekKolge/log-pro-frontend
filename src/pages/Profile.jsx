@@ -66,7 +66,11 @@ const ProfilePage = () => {
       }
     );
 
-  const { data: userData, isSuccess: userIsSuccess } = useShowMeQuery();
+  const {
+    data: userData,
+    isSuccess: userIsSuccess,
+    error: userError,
+  } = useShowMeQuery();
 
   const [updateProfile, { isLoading: updateProfileIsLoading }] =
     useUpdateProfileMutation();
@@ -125,11 +129,33 @@ const ProfilePage = () => {
     const file = value;
     const formData = new FormData();
     formData.append('image', file);
-    uploadProfileImage(formData);
+    uploadProfileImage(formData)
+      .unwrap()
+      .then(() => {
+        showSuccess({ message: 'Profile image uploaded' });
+      })
+      .catch((error) => {
+        if (error.data?.msg) {
+          showError({ message: error.data.msg });
+        } else {
+          showError({ message: 'Something went wrong!, please try again' });
+        }
+      });
   };
 
   const removeProfileImageHandler = () => {
-    removeProfileImage(userData.user.profileImageId);
+    removeProfileImage(userData.user.profileImageId)
+      .unwrap()
+      .then(() => {
+        showInfo({ message: 'Profile image removed' });
+      })
+      .catch((error) => {
+        if (error.data?.msg) {
+          showError({ message: error.data.msg });
+        } else {
+          showError({ message: 'Something went wrong!, please try again' });
+        }
+      });
   };
 
   const deleteAccountHandler = () => {
@@ -153,6 +179,16 @@ const ProfilePage = () => {
       dispatch(updateUserInfoHandler(userData.user));
     }
   }, [userIsSuccess, userData, dispatch]);
+
+  useEffect(() => {
+    if (userError) {
+      if (userError?.data?.msg) {
+        showError({ message: userError.data.msg });
+      } else {
+        showError({ message: 'Something went wrong!, please try again' });
+      }
+    }
+  }, [userError]);
 
   return (
     <Stack spacing={3}>

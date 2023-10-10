@@ -168,7 +168,7 @@ const LogsPage = () => {
   useEffect(() => {
     if (logError) {
       if (logError?.data?.msg) {
-        showError({ msg: logError.data.msg });
+        showError({ message: logError.data.msg });
       } else {
         showError({ message: 'Something went wrong!, please try again' });
       }
