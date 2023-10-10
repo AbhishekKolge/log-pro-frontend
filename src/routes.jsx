@@ -8,6 +8,8 @@ import ForgotPasswordPage from './pages/ForgotPassword';
 import ResetPasswordPage from './pages/ResetPassword';
 import VerifyPage from './pages/Verify';
 import DashboardPage from './pages/Dashboard';
+import LogsPage from './pages/Logs';
+import ProfilePage from './pages/Profile';
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
           {
             path: 'dashboard',
             element: <DashboardPage />,
+          },
+          {
+            path: 'logs',
+            element: <LogsPage />,
+          },
+          {
+            path: 'profile',
+            element: <ProfilePage />,
           },
         ],
       },

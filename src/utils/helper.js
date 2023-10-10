@@ -3,7 +3,6 @@ import _ from 'lodash';
 import { UNITS } from './defaults';
 
 import { showError } from '../snackbar/snackbarAction';
-import store from '../app/store';
 
 const omitEmptyKeys = (obj, excludes = []) =>
   _.omitBy(obj, (value, key) => {
@@ -40,11 +39,10 @@ const validateDropzoneSingleFile = (rejectedFiles, maxSize) => {
     } = rejectedFile;
     switch (code) {
       case 'file-too-large': {
-        store.dispatch(
-          showError({
-            message: `${name} is larger than ${bytesFormat(maxSize)}`,
-          })
-        );
+        showError({
+          message: `${name} is larger than ${bytesFormat(maxSize)}`,
+        });
+
         break;
       }
       default:

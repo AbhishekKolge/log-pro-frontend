@@ -24,6 +24,11 @@ const authSlice = createSlice({
       state.name = initialAuthState.name;
       state.profileImage = initialAuthState.profileImage;
     },
+    updateUserInfo(state, action) {
+      const { name, profileImage } = action.payload;
+      state.name = name;
+      state.profileImage = profileImage;
+    },
   },
 });
 

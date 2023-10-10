@@ -42,23 +42,24 @@ const ActionLayout = () => {
   return (
     <>
       <ScrollToTop />
-      <Box sx={{ minHeight: '100vh' }}>
-        {(loginStatus === false && isAuthScreen) ||
-        (loginStatus && isAuthScreen === false) ? (
+      {(loginStatus === false && isAuthScreen) ||
+      (loginStatus && isAuthScreen === false) ? (
+        <Box sx={{ minHeight: '100vh' }}>
           <Outlet />
-        ) : (
-          <Box
-            sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <CircularProgress color='secondary' size={60} />
-          </Box>
-        )}
-      </Box>
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <CircularProgress color='primary' size={60} />
+        </Box>
+      )}
     </>
   );
 };

@@ -7,10 +7,13 @@ import {
   removeAuthFromLocal,
 } from '../../utils/storage';
 
-const logoutHandler = () => {
+import { showSuccess, showInfo } from '../../snackbar/snackbarAction';
+
+const logoutHandler = (config) => {
   return (dispatch) => {
     removeAuthFromLocal();
     dispatch(authActions.logout());
+    !config?.isSession && showInfo({ message: 'Logged out' });
   };
 };
 
@@ -26,6 +29,7 @@ const checkLoginStatus = () => {
       if (accessExpired) {
         removeAuthFromLocal();
         dispatch(authActions.logout());
+        showInfo({ message: 'Session Expired' });
         return;
       }
 
@@ -36,6 +40,7 @@ const checkLoginStatus = () => {
       setTimeout(() => {
         removeAuthFromLocal();
         dispatch(authActions.logout());
+        showInfo({ message: 'Session Expired' });
       }, autoLogoutTime);
       return;
     }
@@ -63,12 +68,33 @@ const loginHandler = ({ name, profileImage }) => {
       })
     );
 
+    showSuccess({ message: 'Logged in successfully' });
+
     const autoLogoutTime = calculateRemainingTime(accessExpirationTime);
     setTimeout(() => {
       removeAuthFromLocal();
       dispatch(authActions.logout());
+      showInfo({ message: 'Session Expired' });
     }, autoLogoutTime);
   };
 };
 
-export { checkLoginStatus, loginHandler, logoutHandler };
+const updateUserInfoHandler = ({ name, profileImage }) => {
+  return (dispatch) => {
+    const authDetails = getAuthFromLocal();
+
+    authDetails.name = name;
+    authDetails.profileImage = profileImage;
+
+    saveAuthToLocal(authDetails);
+
+    dispatch(
+      authActions.updateUserInfo({
+        name,
+        profileImage,
+      })
+    );
+  };
+};
+
+export { checkLoginStatus, loginHandler, logoutHandler, updateUserInfoHandler };

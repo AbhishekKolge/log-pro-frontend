@@ -1,0 +1,11 @@
+.rdrDateRangePickerWrapper {
+  width: 100%;
+}
+
+.rdrCalendarWrapper.rdrDateRangeWrapper {
+  flex: 1;
+}
+
+.rdrMonth {
+  width: 100%;
+}

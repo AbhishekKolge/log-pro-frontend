@@ -3,6 +3,7 @@ import { logoutHandler } from '../../features/auth/authAction';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BASE_URL,
+  credentials: 'include',
   prepareHeaders: (headers) => {
     return headers;
   },
@@ -10,9 +11,9 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReAuth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-
+  console.log(result);
   if (result?.error?.status === 401) {
-    api.dispatch(logoutHandler());
+    api.dispatch(logoutHandler({ isSession: true }));
   }
 
   return result;
@@ -20,7 +21,7 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
 
 const apiSlice = createApi({
   baseQuery: baseQueryWithReAuth,
-  tagTypes: ['User'],
+  tagTypes: ['User', 'Log', 'Analytics'],
   endpoints: () => ({}),
 });
 

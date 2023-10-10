@@ -5,6 +5,7 @@ import {
   Button,
   Link,
   Box,
+  Alert,
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -12,7 +13,7 @@ import * as Yup from 'yup';
 import YupPassword from 'yup-password';
 import { useFormik } from 'formik';
 
-import { showSuccess, showError } from '../snackbar/snackbarAction';
+import { showError } from '../snackbar/snackbarAction';
 
 import { useLoginMutation } from '../features/auth/authApiSlice';
 import { loginHandler } from '../features/auth/authAction';
@@ -53,7 +54,6 @@ const LoginPage = () => {
         .then((data) => {
           loginFormik.resetForm();
           dispatch(loginHandler(data));
-          showSuccess({ message: 'Logged in successfully' });
           navigate('/dashboard', { replace: true });
         })
         .catch((error) => {
@@ -65,6 +65,11 @@ const LoginPage = () => {
         });
     },
   });
+
+  const credentialHandler = () => {
+    loginFormik.setFieldValue('email', import.meta.env.VITE_TEST_EMAIL);
+    loginFormik.setFieldValue('password', import.meta.env.VITE_TEST_PASSWORD);
+  };
 
   return (
     <Container
@@ -82,6 +87,19 @@ const LoginPage = () => {
           >
             Sign in to LogPro
           </Typography>
+          <Alert
+            onClick={credentialHandler}
+            sx={{ cursor: 'pointer' }}
+            variant='filled'
+            severity='info'
+          >
+            <Typography>{`Use email : ${
+              import.meta.env.VITE_TEST_EMAIL
+            }`}</Typography>
+            <Typography>{`Use password : ${
+              import.meta.env.VITE_TEST_PASSWORD
+            }`}</Typography>
+          </Alert>
           <TextField
             required
             fullWidth

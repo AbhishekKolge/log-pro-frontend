@@ -11,6 +11,8 @@ import store from './app/store';
 import { SNACKBAR_DURATION } from './utils/defaults';
 import App from './App.jsx';
 
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 import './index.css';
 
 if (import.meta.env.VITE_NODE_ENV !== 'dev') {
