@@ -65,24 +65,28 @@ const queryFilterReducer = (state, action) => {
   if (action.type === 'SET_STATUS') {
     return {
       ...state,
+      page: initialQueryFilterState.page,
       status: action.status,
     };
   }
   if (action.type === 'SET_METHOD') {
     return {
       ...state,
+      page: initialQueryFilterState.page,
       method: action.method,
     };
   }
   if (action.type === 'SET_PROCESSING_TIME') {
     return {
       ...state,
+      page: initialQueryFilterState.page,
       processingTime: action.processingTime,
     };
   }
   if (action.type === 'SET_SORT') {
     return {
       ...state,
+      page: initialQueryFilterState.page,
       sort: action.sort,
     };
   }
