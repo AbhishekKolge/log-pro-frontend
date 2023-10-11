@@ -23,7 +23,7 @@ const ChartBox = (props) => {
     <Card sx={{ height: '100%' }}>
       <CardContent>
         <Stack direction='row' spacing={3}>
-          <Stack spacing={1} justifyContent='center' alignItems='center'>
+          <Stack justifyContent='center' alignItems='center'>
             <Typography color='text.secondary' variant='overline'>
               {title}
             </Typography>
