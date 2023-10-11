@@ -33,7 +33,7 @@ const ChartBox = (props) => {
               <Typography variant='h4'>{count}</Typography>
             )}
           </Stack>
-          <Box sx={{ minHeight: '100px', minWidth: '300px' }}>
+          <Box sx={{ minHeight: '100px', minWidth: '265px' }}>
             {!isLoading && !!data?.length && (
               <ResponsiveContainer width='100%' height='100%'>
                 <LineChart width={300} height={100} data={data}>
