@@ -20,7 +20,7 @@ const ChartBox = (props) => {
   }
 
   return (
-    <Card>
+    <Card sx={{ height: '100%' }}>
       <CardContent>
         <Stack direction='row' spacing={3}>
           <Stack spacing={1} justifyContent='center' alignItems='center'>

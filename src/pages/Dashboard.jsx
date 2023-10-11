@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 
 import TimeFilter from '../components/TimeFilter/TimeFilter';
 import ChartBox from '../components/ChartBox/ChartBox';
+import UserBox from '../components/ChartBox/UserBox';
 
 import { showError } from '../snackbar/snackbarAction';
 
@@ -64,19 +65,29 @@ const DashboardPage = () => {
             retainEndDateOnFirstSelection={true}
           />
         </Grid>
-        <Grid xs={12} lg={6}>
-          <Stack spacing={3}>
-            <ChartBox
-              data={analyticsData?.request}
-              title='Request'
+
+        <Grid container spacing={3} xs={12} lg={6}>
+          <Grid xs={4} lg={3}>
+            <UserBox
+              data={analyticsData?.user}
+              title='User'
               isLoading={analyticsIsLoading || analyticsIsFetching}
             />
-            <ChartBox
-              data={analyticsData?.failedRequest}
-              title='Failure'
-              isLoading={analyticsIsLoading || analyticsIsFetching}
-            />
-          </Stack>
+          </Grid>
+          <Grid xs={8} lg={9}>
+            <Stack spacing={3} height='100%' justifyContent='space-between'>
+              <ChartBox
+                data={analyticsData?.request}
+                title='Request'
+                isLoading={analyticsIsLoading || analyticsIsFetching}
+              />
+              <ChartBox
+                data={analyticsData?.failedRequest}
+                title='Failure'
+                isLoading={analyticsIsLoading || analyticsIsFetching}
+              />
+            </Stack>
+          </Grid>
         </Grid>
       </Grid>
     </Stack>
