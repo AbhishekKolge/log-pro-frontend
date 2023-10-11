@@ -130,6 +130,7 @@ const LogsPage = () => {
   const {
     data: logData,
     isLoading: logIsLoading,
+    isFetching: logIsFetching,
     isSuccess: logIsSuccess,
     error: logError,
   } = useGetAllLogsQuery(queryFilterState, {
@@ -319,7 +320,9 @@ const LogsPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {!!logData?.logs?.length &&
+            {!logIsLoading &&
+              !logIsFetching &&
+              !!logData?.logs?.length &&
               logData?.logs.map((log) => {
                 const isExpanded = expandedRowId === log.id;
                 return (
@@ -336,7 +339,7 @@ const LogsPage = () => {
       </TableContainer>
       {!logsState.firstRender && (
         <Typography align='center'>
-          {logIsLoading
+          {logIsLoading || logIsFetching
             ? 'Loading...'
             : logData?.logs?.length
             ? ''

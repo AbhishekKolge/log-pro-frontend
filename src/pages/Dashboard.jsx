@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Typography, Stack, Card, CardContent } from '@mui/material';
+import { Typography, Stack } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import dayjs from 'dayjs';
 
@@ -21,6 +21,7 @@ const DashboardPage = () => {
     data: analyticsData,
     isLoading: analyticsIsLoading,
     error: analyticsError,
+    isFetching: analyticsIsFetching,
   } = useGetAnalyticsQuery(
     {
       startDate: new Date(selectionRange.startDate).getTime(),
@@ -65,30 +66,16 @@ const DashboardPage = () => {
         </Grid>
         <Grid xs={12} lg={6}>
           <Stack spacing={3}>
-            <Card>
-              <CardContent>
-                <Stack direction='row' justifyContent='space-between'>
-                  <ChartBox
-                    count={analyticsData?.usersCount}
-                    data={analyticsData?.users}
-                    title='Users'
-                    isLoading={analyticsIsLoading}
-                  />
-                  <ChartBox
-                    count={analyticsData?.requestCount}
-                    data={analyticsData?.request}
-                    title='Request'
-                    isLoading={analyticsIsLoading}
-                  />
-                  <ChartBox
-                    count={analyticsData?.failedRequestCount}
-                    data={analyticsData?.failedRequest}
-                    title='Failure'
-                    isLoading={analyticsIsLoading}
-                  />
-                </Stack>
-              </CardContent>
-            </Card>
+            <ChartBox
+              data={analyticsData?.request}
+              title='Request'
+              isLoading={analyticsIsLoading || analyticsIsFetching}
+            />
+            <ChartBox
+              data={analyticsData?.failedRequest}
+              title='Failure'
+              isLoading={analyticsIsLoading || analyticsIsFetching}
+            />
           </Stack>
         </Grid>
       </Grid>
