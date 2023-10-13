@@ -70,12 +70,7 @@ const ProfilePage = () => {
     data: userData,
     isSuccess: userIsSuccess,
     error: userError,
-  } = useShowMeQuery(
-    {},
-    {
-      refetchOnFocus: true,
-    }
-  );
+  } = useShowMeQuery();
 
   const [updateProfile, { isLoading: updateProfileIsLoading }] =
     useUpdateProfileMutation();

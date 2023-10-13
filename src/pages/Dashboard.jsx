@@ -30,7 +30,6 @@ const DashboardPage = () => {
     },
     {
       skip: selectionRange.startDate && selectionRange.endDate ? false : true,
-      refetchOnFocus: true,
     }
   );
 
