@@ -135,6 +135,7 @@ const LogsPage = () => {
     error: logError,
   } = useGetAllLogsQuery(queryFilterState, {
     skip: logsState.firstRender,
+    refetchOnFocus: true,
   });
 
   const pageChangeHandler = (_, page) => {
