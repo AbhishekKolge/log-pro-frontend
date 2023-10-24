@@ -304,8 +304,30 @@ const LogsPage = () => {
           </Stack>
         </CardContent>
       </Card>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label='simple table'>
+      <TableContainer
+        sx={(theme) => {
+          return {
+            [theme.breakpoints.down('lg')]: {
+              width: 'calc(100vw - 4rem - 65px)',
+            },
+            [theme.breakpoints.down('md')]: {
+              width: 'calc(100vw - 2rem)',
+            },
+          };
+        }}
+        component={Paper}
+      >
+        <Table
+          responsive
+          sx={(theme) => {
+            return {
+              [theme.breakpoints.down('md')]: {
+                width: '100%',
+              },
+            };
+          }}
+          aria-label='simple table'
+        >
           <TableHead>
             <TableRow>
               <TableCell></TableCell>

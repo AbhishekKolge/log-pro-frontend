@@ -9,3 +9,13 @@
 .rdrMonth {
   width: 100%;
 }
+
+@media only screen and (max-width: 900px) {
+  .date-range-picker {
+    flex-direction: column;
+  }
+
+  .rdrDefinedRangesWrapper {
+    width: 100%;
+  }
+}

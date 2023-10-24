@@ -67,14 +67,14 @@ const DashboardPage = () => {
         </Grid>
 
         <Grid container spacing={3} xs={12} lg={6}>
-          <Grid xs={4} lg={3}>
+          <Grid xs={12} md={3}>
             <UserBox
               data={analyticsData?.user}
               title='User'
               isLoading={analyticsIsLoading || analyticsIsFetching}
             />
           </Grid>
-          <Grid xs={8} lg={9}>
+          <Grid xs={12} md={9}>
             <Stack spacing={3} height='100%' justifyContent='space-between'>
               <ChartBox
                 data={analyticsData?.request}

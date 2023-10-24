@@ -22,7 +22,7 @@ const ChartBox = (props) => {
   return (
     <Card sx={{ height: '100%' }}>
       <CardContent>
-        <Stack direction='row' spacing={3}>
+        <Stack direction={{ xs: 'column', lg: 'row' }} spacing={3}>
           <Stack justifyContent='center' alignItems='center'>
             <Typography color='text.secondary' variant='overline'>
               {title}
@@ -33,7 +33,17 @@ const ChartBox = (props) => {
               <Typography variant='h4'>{count}</Typography>
             )}
           </Stack>
-          <Box sx={{ minHeight: '100px', minWidth: '265px' }}>
+          <Box
+            sx={(theme) => {
+              return {
+                minHeight: '100px',
+                minWidth: '265px',
+                [theme.breakpoints.down('lg')]: {
+                  height: '100px',
+                },
+              };
+            }}
+          >
             {!isLoading && !!data?.length && (
               <ResponsiveContainer width='100%' height='100%'>
                 <LineChart width={300} height={100} data={data}>

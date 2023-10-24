@@ -43,18 +43,21 @@ const closedMixin = (theme) => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
+  width: `calc(${theme.spacing(0)} + 1px)`,
+  [theme.breakpoints.up('md')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
 });
 
-const Main = styled('main')(() => ({
+const Main = styled('main')(({ theme }) => ({
   flexGrow: 1,
   marginTop: '64px',
   minHeight: 'calc(100vh - 64px)',
   backgroundColor: '#F6F9FC',
   padding: '2rem',
+  [theme.breakpoints.down('md')]: {
+    padding: '1rem',
+  },
 }));
 
 const AppBar = styled(MuiAppBar, {
