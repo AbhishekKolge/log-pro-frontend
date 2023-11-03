@@ -307,6 +307,7 @@ const LogsPage = () => {
       <TableContainer
         sx={(theme) => {
           return {
+            width: 'calc(100vw - 2rem)',
             [theme.breakpoints.down('lg')]: {
               width: 'calc(100vw - 4rem - 65px)',
             },
